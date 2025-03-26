@@ -1,5 +1,5 @@
 const FavoritePage = () => {
-  return <div className='text-3xl font-bold underline'>FavoritePage</div>;
+  return <div className='text-body1'>FavoritePage</div>;
 };
 
 export default FavoritePage;
