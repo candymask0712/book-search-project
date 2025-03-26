@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from './App.tsx';
-import SearchPage from './pages/SearchPage.tsx';
-
+import App from './App';
+import SearchPage from './pages/SearchPage';
+import FavoritePage from './pages/FavortiePage';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -9,11 +9,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <App />
+        element: <SearchPage />
       },
       {
-        path: '/search',
-        element: <SearchPage />
+        path: 'favorite',
+        element: <FavoritePage />
       }
     ]
   }
