@@ -1,7 +1,8 @@
 import './App.css';
+import SearchPage from './pages/SearchPage';
 
 function App() {
-  return <h1 className='text-3xl font-bold underline'>APP페이지</h1>;
+  return <SearchPage />;
 }
 
 export default App;
