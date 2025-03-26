@@ -1,7 +1,7 @@
 import './App.css';
 
 function App() {
-  return <>APP페이지</>;
+  return <h1 className='text-3xl font-bold underline'>APP페이지</h1>;
 }
 
 export default App;
