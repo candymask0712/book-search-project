@@ -1,12 +1,11 @@
 import { Outlet } from 'react-router-dom';
+import Header from './components/header/Header';
 
 export default function App() {
   return (
     <div className='bg-palette-white'>
-      <header className='p-4'>
-        <h1 className='text-body2Bold'>My App Layout</h1>
-      </header>
-      <main className='p-4'>
+      <Header />
+      <main className='pt-16'>
         <Outlet />
       </main>
     </div>
