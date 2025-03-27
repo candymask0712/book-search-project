@@ -25,13 +25,13 @@ const fontSize = {
   title2: createFontSize('22px', '700'),
   title3: createFontSize('18px', '700'),
   body1: createFontSize('20px', '500'),
-  body2: createFontSize('12px', '400'),
-  body2Bold: createFontSize('12px', '700'),
-  caption: createFontSize('10px', '400'),
-  small: createFontSize('8px', '400')
+  body2: createFontSize('14px', '400'),
+  body2Bold: createFontSize('14px', '700'),
+  caption: createFontSize('16px', '400'),
+  small: createFontSize('10px', '400')
 };
 
-module.exports = {
+export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
