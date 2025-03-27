@@ -1,6 +1,6 @@
-import { Button } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DefaultButton from '../button/Button';
 interface Props {
   message?: string;
 }
@@ -12,13 +12,12 @@ const DefaultFallback: React.FC<Props> = ({
     <div className='flex flex-col items-center justify-center h-screen'>
       <p className='text-body1 mb-4'>{message}</p>
       <Link to='/'>
-        <Button
-          type='primary'
-          size='large'
-          className='bg-palette-primary border-palette-primary'
+        <DefaultButton
+          variant='primary'
+          size='medium'
         >
           홈으로 이동
-        </Button>
+        </DefaultButton>
       </Link>
     </div>
   );
