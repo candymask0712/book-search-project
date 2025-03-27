@@ -1,5 +1,10 @@
+import CaretUp from '../assets/icons/caret-up.svg?react';
+import IconButton from "../components/button/IconButton";
+
 const SearchPage = () => {
-  return <div className='text-3xl font-bold underline'>Search</div>;
+  return <div>
+    <IconButton icon={<CaretUp />} variant="secondary" iconPosition="left" />
+  </div>;
 };
 
 export default SearchPage;

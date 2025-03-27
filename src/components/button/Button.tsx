@@ -5,21 +5,21 @@ import { twMerge } from 'tailwind-merge';
 type ButtonVariant = Extract<CommonVariant, 'primary' | 'secondary'>;
 type ButtonSize = Extract<CommonSize, 'small' | 'medium'>;
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   disabled?: boolean;
   isLoading?: boolean;
 }
 
-const Button = ({ children, size = 'medium', variant = 'primary', onClick = ()=>{}, className = '', disabled = false, isLoading = false, ...props }: Props) => {
+const Button = ({ children, size = 'medium', variant = 'primary', onClick = () => {}, className = '', disabled = false, isLoading = false, ...props }: ButtonProps) => {
   const baseStyle = 'flex items-center justify-center rounded-md';
   const commonVariantStyle = commonStyles['variant'][variant];
   const commonSizeStyle = commonStyles['size'][size];
   const buttonSizeStyle = buttonStyles['size'][size];
 
   const buttonClassName = twMerge(
-    baseStyle,
+    baseStyle, 
     commonVariantStyle,
     commonSizeStyle,
     buttonSizeStyle,
