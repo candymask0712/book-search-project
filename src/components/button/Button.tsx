@@ -14,17 +14,21 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const DefaultButton = ({ children, size = 'medium', variant = 'primary', onClick = () => {}, className = '', disabled = false, isLoading = false, ...props }: ButtonProps) => {
   const baseStyle = 'flex items-center justify-center rounded-md';
-  const commonVariantStyle = commonStyles['variant'][variant];
   const buttonSizeStyle = buttonStyles['size'][size];
+  const commonVariantStyle = commonStyles['variant'][variant];
 
   const buttonClassName = twMerge(
     baseStyle, 
-    commonVariantStyle,
     buttonSizeStyle,
+    commonVariantStyle,
     className
   );
   
-  return <button onClick={onClick} className={buttonClassName} disabled={disabled || isLoading} {...props}>{children}</button>;
+  return <button onClick={onClick} className={buttonClassName} disabled={disabled || isLoading} {...props}>
+    <div className={buttonStyles['fontSize'][size]}>
+      {children}
+    </div>
+  </button>;
 };
 
 export default DefaultButton;
