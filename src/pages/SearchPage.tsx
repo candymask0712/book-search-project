@@ -1,10 +1,11 @@
-import CaretUp from '../assets/icons/caret-up.svg?react';
-import IconButton from "../components/button/IconButton";
+import NoResult from '../components/search/NoResult';
 
 const SearchPage = () => {
-  return <div>
-    <IconButton icon={<CaretUp />} variant="secondary" iconPosition="left" />
-  </div>;
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <NoResult />
+    </div>
+  );
 };
 
 export default SearchPage;
