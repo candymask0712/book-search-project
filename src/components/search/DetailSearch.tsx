@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import CloseIcon from '../../assets/icons/close.svg?react';
 import DefaultButton from '../shared/button/Button';
 import Dropdown from '../shared/dropdown/Dropdown';
 import { SearchTarget } from '../../types/api.types';
 import SEARCH_TARGETS from '../../constants/search';
+import { useClickAway } from 'react-use';
 const searchTargetOptions = Object.keys(SEARCH_TARGETS);
 
 interface Props {
@@ -28,21 +29,9 @@ const DetailSearchModal: React.FC<Props> = ({
     onClose();
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [onClose]);
+  useClickAway(modalRef, () => {
+    onClose();
+  });
 
   return (
     <div
