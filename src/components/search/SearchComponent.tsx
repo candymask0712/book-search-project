@@ -8,8 +8,6 @@ interface Props {
   title: string;
   query: string;
   setQuery: (query: string) => void;
-  removeHistoryItem: (index: number) => void;
-  history: string[];
   searchTarget: SearchTarget;
   setSearchTarget: (target: SearchTarget) => void;
 }
@@ -18,8 +16,6 @@ const SearchComponent = ({
   title,
   query,
   setQuery,
-  removeHistoryItem,
-  history,
   searchTarget,
   setSearchTarget
 }: Props) => {
@@ -31,12 +27,7 @@ const SearchComponent = ({
     <div className="flex flex-col gap-4 w-[568px]">
       <h1>{title}</h1>
       <div className="flex flex-row gap-4">
-        <SearchBar
-          query={query}
-          setQuery={setQuery}
-          removeHistoryItem={removeHistoryItem}
-          history={history}
-        />
+        <SearchBar query={query} setQuery={setQuery} />
         <div className="flex items-center w-24 relative">
           <DefaultButton
             size="small"

@@ -1,58 +1,32 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { searchBooks } from '../api/kakako/kakaoApi';
 import { SearchBooksResponse, SearchBooksParams } from '../types/api.types';
-import { useState, useEffect } from 'react';
-import { debounce } from 'lodash-es';
-import { atomWithStorage } from 'jotai/utils';
-import { useAtom } from 'jotai';
 
 interface UseSearchBooksParams extends Omit<SearchBooksParams, 'page'> {
   query: string;
   page?: number;
 }
 
-const searchHistoryAtom = atomWithStorage<string[]>('searchHistory', []);
-
-export const useSearchBooks = ({
+export const useInfiniteSearchBooks = ({
   query,
-  target,
-  page = 1
+  target
 }: UseSearchBooksParams) => {
-  const [debouncedQuery, setDebouncedQuery] = useState(query);
-  const [history, setHistory] = useAtom(searchHistoryAtom);
-
-  useEffect(() => {
-    const handler = debounce(() => {
-      setDebouncedQuery(query);
-      if (query.trim() !== '' && !history.includes(query)) {
-        const newHistory = [...history];
-        newHistory.push(query);
-        while (newHistory.length > 10) {
-          newHistory.shift();
-        }
-        setHistory(newHistory);
-      }
-    }, 500);
-
-    handler();
-
-    return () => {
-      handler.cancel();
-    };
-  }, [query, history, setHistory]);
-
-  const removeHistoryItem = (index: number) => {
-    const newHistory = history.filter((_, i) => i !== index);
-    setHistory(newHistory);
-  };
-
   return {
-    ...useQuery<SearchBooksResponse, Error>({
-      queryKey: ['searchBooks', debouncedQuery, target, page],
-      queryFn: () => searchBooks({ query: debouncedQuery, target, page }),
-      enabled: debouncedQuery.trim().length > 0
+    ...useInfiniteQuery<SearchBooksResponse, Error>({
+      queryKey: ['searchBooks', query, target],
+      queryFn: ({ pageParam }) => {
+        const page = isNaN(Number(pageParam)) ? 1 : Number(pageParam);
+        return searchBooks({ query, target, page });
+      },
+      getNextPageParam: (lastPage, pages) => {
+        if (!lastPage.meta.is_end) {
+          return pages.length + 1;
+        }
+        return undefined;
+      },
+      enabled: Boolean(query),
+      initialPageParam: 1
     }),
-    history,
-    removeHistoryItem
+    history
   };
 };
