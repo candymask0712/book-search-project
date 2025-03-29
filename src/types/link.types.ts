@@ -1,3 +1,3 @@
-import { LINKS } from '../constants/links';
+import { LINKS } from '../constants/nav';
 
 export type LinkType = (typeof LINKS)[number];

@@ -1,5 +1,7 @@
-export type SearchTarget = 'title' | 'isbn' | 'publisher' | 'person';
+import SEARCH_TARGETS from '../constants/search';
+
 export type Sort = 'accuracy' | 'latest';
+export type SearchTarget = keyof typeof SEARCH_TARGETS;
 
 export type SearchBooksParams = {
   query: string; // 검색을 원하는 질의어
