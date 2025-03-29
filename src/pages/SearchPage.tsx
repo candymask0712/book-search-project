@@ -3,13 +3,15 @@ import NoResult from '../components/search/NoResult';
 import SearchComponent from '../components/search/SearchComponent';
 import LoadingFallback from '../components/fallback/LoadingFallback';
 import { useSearchBooks } from '../hooks/useSearchBooks';
+import { SearchTarget } from '../types/api.types';
 
 const SearchPage = () => {
-  const [query, setQuery] = useState('책');
+  const [query, setQuery] = useState('');
+  const [searchTarget, setSearchTarget] = useState<SearchTarget>('author');
   const { data, isLoading, error, history, removeHistoryItem } = useSearchBooks(
     {
       query,
-      target: 'title'
+      target: searchTarget
     }
   );
 
@@ -29,6 +31,8 @@ const SearchPage = () => {
         setQuery={setQuery}
         removeHistoryItem={removeHistoryItem}
         history={history}
+        searchTarget={searchTarget}
+        setSearchTarget={setSearchTarget}
       />
       {/* TODO: 검색 결과 표시 */}
       {data?.documents.length === 0 ? <NoResult /> : JSON.stringify(data)}

@@ -28,6 +28,7 @@ const fontSize = {
   body2: createFontSize('14px', '400'),
   body2Bold: createFontSize('14px', '700'),
   caption: createFontSize('16px', '400'),
+  captionMedium: ['14px', { lineHeight: '22px', fontWeight: '500' }],
   small: createFontSize('10px', '400')
 };
 
