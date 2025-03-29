@@ -47,7 +47,7 @@ export default {
         text: {
           primary: '#353C49',
           secondary: '#6D7582',
-          disabled: '#8D94A0'
+          subtitle: '#8D94A0'
         }
       },
       fontSize
