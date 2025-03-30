@@ -32,7 +32,9 @@ const SearchResultList = ({ data }: Props) => {
             {isExpanded ? (
               <div className="flex flex-row justify-between mt-7 rounded-md">
                 <div className="flex flex-row gap-10">
-                  <BookThumbnail document={document} size="16" />
+                  <div className="w-[210px]">
+                    <BookThumbnail document={document} size="16" />
+                  </div>
                   <div className="w-[360px]">
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
@@ -97,17 +99,17 @@ const SearchResultList = ({ data }: Props) => {
                 <div className="flex justify-between items-center flex-row gap-2 mb-2 mt-4">
                   <div className="flex flex-row gap-2 items-center pl-14">
                     {/* TODO: 썸네일 로딩에 따른 레이아웃시프트 해결 */}
-                    <div className="h-17 w-12">
+                    <div className="h-17 w-12 mr-10">
                       <BookThumbnail document={document} size="16" />
                     </div>
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
-                      widths={['max-w-[300px]', 'max-w-[150px]']}
+                      widths={['min-w-[150px]', 'max-w-[100px]']}
                     />
                   </div>
 
                   <div className="flex flex-row gap-2">
-                    <div className="flex flex-row gap-2 items-center w-[150px] justify-end mr-10">
+                    <div className="flex flex-row gap-2 items-center w-[120px] justify-end mr-10">
                       <span className="text-title3">
                         {document.sale_price !== -1
                           ? document.sale_price.toLocaleString('ko-KR')
@@ -115,7 +117,7 @@ const SearchResultList = ({ data }: Props) => {
                         원
                       </span>
                     </div>
-                    <div className="flex flex-row gap-2 items-center">
+                    <div className="flex flex-row gap-2 items-center justify-end w-[240px]">
                       <Button size="large">구매하기</Button>
                       <IconButton
                         text="상세보기"
@@ -147,14 +149,12 @@ const TitleAndAuthor = ({
   widths?: [string?, string?];
 }) => {
   const [title, authors] = texts;
-  const [titleWidth, authorWidth] = widths || [];
+  const [titleWidth] = widths || [];
 
   return (
-    <div className="flex flex-row gap-2 items-center">
+    <div className="flex flex-row gap-2 items-center max-w-[350px]">
       <h3 className={`text-title3 mr-2 truncate ${titleWidth}`}>{title}</h3>
-      <span
-        className={`text-body2 text-text-secondary truncate ${authorWidth}`}
-      >
+      <span className={`text-body2 text-text-secondary truncate `}>
         {authors.join(', ')}
       </span>
     </div>
