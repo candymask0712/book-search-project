@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { SearchTarget } from '../../../types/api.types';
 import SEARCH_TARGETS from '../../../constants/search';
 import ArrowDownIcon from '../../../assets/icons/caret-down.svg?react';
+import { useClickAway } from 'react-use';
 
 interface Props {
   searchTarget: SearchTarget;
@@ -11,9 +12,14 @@ interface Props {
 
 const Dropdown = ({ searchTarget, setSearchTarget, options }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useClickAway(dropdownRef, () => {
+    setIsDropdownOpen(false);
+  });
 
   return (
-    <div className="relative mr-4 w-24">
+    <div className="relative mr-4 w-24" ref={dropdownRef}>
       <button
         className="flex items-center justify-between w-full text-body2Bold px-2 py-1"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}

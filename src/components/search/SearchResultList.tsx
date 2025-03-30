@@ -5,6 +5,7 @@ import IconButton from '../shared/button/IconButton';
 import CaretUpIcon from '../../assets/icons/caret-up.svg?react';
 import CaretDownIcon from '../../assets/icons/caret-down.svg?react';
 import BookThumbnail from '../shared/thumbnail/BookThumbnail';
+import cn from 'classnames';
 
 interface Props {
   data: Document[];
@@ -34,20 +35,20 @@ const SearchResultList = ({ data }: Props) => {
               <div className="flex flex-row justify-between mt-7 rounded-md mb-10">
                 <div className="flex flex-row gap-10 ml-10">
                   <div className="w-[210px]">
-                    <BookThumbnail document={document} size="16" />
+                    <BookThumbnail document={document} size="6" />
                   </div>
-                  <div className="w-[360px]">
+                  <div className="w-[360px] mt-10">
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
                       widths={['max-w-[200px]', 'min-w-[50px]']}
                     />
-                    <h4 className="text-title2 mt-6 mb-6">책 소개</h4>
-                    <p className="text-body2 text-text-secondary mb-4">
+                    <h4 className="text-body2Bold mt-6 mb-6">책 소개</h4>
+                    <p className="text-small text-text-primary mb-4 leading-[16px]">
                       {document.contents || '책 소개 정보가 없습니다.'}
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col justify-between h-[280px]">
+                <div className="flex flex-col justify-between h-[300px]">
                   <div className="flex justify-end mb-2">
                     <IconButton
                       text="상세보기"
@@ -56,18 +57,25 @@ const SearchResultList = ({ data }: Props) => {
                       size="large"
                       iconPosition="right"
                       onClick={() => handleToggle(index)}
+                      className="w-[115px]"
                     />
                   </div>
                   <div className="flex flex-col items-end">
                     <div className="flex flex-col gap-3 mb-8">
-                      <div className="flex flex-row gap-2 justify-end items-center">
-                        <span className="text-tinyMedium text-text-secondary">
-                          원가:
-                        </span>
-                        <span className="line-through">
-                          {document.price.toLocaleString('ko-KR')}원
-                        </span>
-                      </div>
+                      {document.price > 0 && (
+                        <div className="flex flex-row gap-2 justify-end items-center">
+                          <span className="text-tinyMedium text-text-secondary">
+                            원가:
+                          </span>
+                          <span
+                            className={cn({
+                              'line-through': document.sale_price !== -1
+                            })}
+                          >
+                            {document.price.toLocaleString('ko-KR')}원
+                          </span>
+                        </div>
+                      )}
                       {document.sale_price !== -1 && (
                         <div className="flex flex-row gap-2 items-center">
                           <span className="text-tinyMedium text-text-secondary">
@@ -101,7 +109,7 @@ const SearchResultList = ({ data }: Props) => {
                 <div className="flex flex-row gap-2 items-center pl-14">
                   {/* TODO: 썸네일 로딩에 따른 레이아웃시프트 해결 */}
                   <div className="h-17 w-12 mr-10">
-                    <BookThumbnail document={document} size="16" />
+                    <BookThumbnail document={document} size="4" />
                   </div>
                   <TitleAndAuthor
                     texts={[document.title, document.authors]}
@@ -111,12 +119,14 @@ const SearchResultList = ({ data }: Props) => {
 
                 <div className="flex flex-row gap-2">
                   <div className="flex flex-row gap-2 items-center w-[120px] justify-end mr-10">
-                    <span className="text-title3">
-                      {document.sale_price !== -1
-                        ? document.sale_price.toLocaleString('ko-KR')
-                        : document.price.toLocaleString('ko-KR')}
-                      원
-                    </span>
+                    {document.price > 0 && (
+                      <span className="text-title3">
+                        {document.sale_price !== -1
+                          ? document.sale_price.toLocaleString('ko-KR')
+                          : document.price.toLocaleString('ko-KR')}
+                        원
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-row gap-2 items-center justify-end w-[240px]">
                     <Button
@@ -128,6 +138,7 @@ const SearchResultList = ({ data }: Props) => {
                           'noopener,noreferrer'
                         )
                       }
+                      className="w-[115px]"
                     >
                       구매하기
                     </Button>
@@ -138,6 +149,7 @@ const SearchResultList = ({ data }: Props) => {
                       icon={<CaretDownIcon />}
                       iconPosition="right"
                       onClick={() => handleToggle(index)}
+                      className="w-[115px]"
                     />
                   </div>
                 </div>

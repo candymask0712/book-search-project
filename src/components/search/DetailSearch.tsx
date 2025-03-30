@@ -9,7 +9,6 @@ const searchTargetOptions = Object.keys(SEARCH_TARGETS);
 
 interface Props {
   onClose: () => void;
-  query: string;
   setQuery: (query: string) => void;
   searchTarget: SearchTarget;
   setSearchTarget: (target: SearchTarget) => void;
@@ -21,7 +20,7 @@ const DetailSearchModal: React.FC<Props> = ({
   searchTarget,
   setSearchTarget
 }) => {
-  const [detailedQuery, setDetailedQuery] = useState('');
+  const detailedQueryRef = useRef<HTMLInputElement>(null);
   const [selectedOption, setSelectedOption] = useState(searchTarget);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -43,30 +42,27 @@ const DetailSearchModal: React.FC<Props> = ({
           <CloseIcon fill="#B1B8C0" width={16} height={16} />
         </button>
 
-        {/* 검색 옵션 & 입력창 */}
         <div className="flex items-center">
-          {/* 드롭다운 버튼 */}
           <Dropdown
             searchTarget={selectedOption}
             setSearchTarget={setSelectedOption}
             // TODO 상수에서 가져오도록 수정
             options={searchTargetOptions as SearchTarget[]}
           />
-          {/* 검색어 입력창 */}
           <div className="flex-1">
             <input
               type="text"
               placeholder="검색어 입력"
-              value={detailedQuery}
-              onChange={e => setDetailedQuery(e.target.value)}
+              ref={detailedQueryRef}
               className="w-full pl-1 border-b-2 border-gray-200 focus:outline-none focus:border-blue-500 placeholder: text-captionMedium "
             />
           </div>
         </div>
         <DefaultButton
           onClick={() => {
-            setQuery(detailedQuery);
+            setQuery(detailedQueryRef.current?.value || '');
             setSearchTarget(selectedOption);
+            onClose();
           }}
           className="mb-5"
         >

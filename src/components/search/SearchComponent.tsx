@@ -25,16 +25,15 @@ const SearchComponent = ({
       <div className="flex items-center w-24 relative">
         <DefaultButton
           size="small"
-          variant="secondary"
+          variant="lined"
           onClick={() => setIsDetailSearchOpen(true)}
         >
           상세검색
         </DefaultButton>
         {isDetailSearchOpen && (
           <DetailSearchModal
-            onClose={() => setIsDetailSearchOpen(false)}
             searchTarget={searchTarget}
-            query={query}
+            onClose={() => setIsDetailSearchOpen(false)}
             setQuery={setQuery}
             setSearchTarget={setSearchTarget}
           />

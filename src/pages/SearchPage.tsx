@@ -5,10 +5,11 @@ import { useInfiniteSearchBooks } from '../hooks/useSearchBooks';
 import { SearchTarget } from '../types/api.types';
 import ResultComponent from '../components/shared/result/ResultComponent';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import { LINKS } from '../constants/nav';
 
 const SearchPage = () => {
   const [query, setQuery] = useState('');
-  const [searchTarget, setSearchTarget] = useState<SearchTarget>('author');
+  const [searchTarget, setSearchTarget] = useState<SearchTarget>('title');
 
   const {
     data,
@@ -37,8 +38,8 @@ const SearchPage = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col w-[568px] gap-6">
-        <h1 className="text-title2">도서 검색</h1>
+      <div className="flex flex-col w-[568px] gap-6 mb-4">
+        <h1 className="text-title2">{LINKS.SEARCH.label}</h1>
         <SearchComponent
           query={query}
           setQuery={setQuery}
@@ -50,6 +51,7 @@ const SearchPage = () => {
         subTitle="도서 검색 결과"
         data={documents}
         totalCount={data?.pages[0].meta.total_count || 0}
+        noResultText="검색된 결과가 없습니다."
       />
       <div ref={observerElem} className="h-1 w-full" />
       {isFetchingNextPage && <LoadingFallback />}

@@ -2,7 +2,10 @@ import { buttonStyles, commonStyles } from '../../../constants/styles';
 import { CommonVariant, ButtonSize } from '../../../types/common.types';
 import { twMerge } from 'tailwind-merge';
 
-type DefaultButtonVariant = Extract<CommonVariant, 'primary' | 'secondary'>;
+type DefaultButtonVariant = Extract<
+  CommonVariant,
+  'primary' | 'secondary' | 'lined'
+>;
 type DefaultButtonSize = Extract<ButtonSize, 'small' | 'medium' | 'large'>;
 
 export interface ButtonProps
