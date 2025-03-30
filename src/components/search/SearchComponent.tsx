@@ -25,7 +25,7 @@ const SearchComponent = ({
       <div className="flex items-center w-24 relative">
         <DefaultButton
           size="small"
-          variant="secondary"
+          variant="lined"
           onClick={() => setIsDetailSearchOpen(true)}
         >
           상세검색

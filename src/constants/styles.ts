@@ -2,7 +2,8 @@ export const commonStyles = {
   variant: {
     primary: 'bg-palette-primary text-palette-white',
     secondary:
-      'bg-palette-lightGray text-text-secondary border border-palette-subtitle'
+      'bg-palette-lightGray text-text-secondary border border-palette-subtitle',
+    lined: 'bg-palette-white text-text-subtitle border border-text-subtitle'
   }
 } as const;
 
