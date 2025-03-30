@@ -38,7 +38,6 @@ const SearchPage = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      query: {query}
       <div className="flex flex-col w-[568px] gap-6 mb-4">
         <h1 className="text-title2">{LINKS.SEARCH.label}</h1>
         <SearchComponent

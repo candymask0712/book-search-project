@@ -58,7 +58,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
         isRecentOpen && history.length > 0 ? 'rounded-t-3xl' : 'rounded-3xl'
       }`}
     >
-      ref: {inputRef.current?.value}
       <form className="flex items-center px-4 py-2 rounded-t-3xl">
         <SearchIcon className="text-gray-500 mr-2" />
         <input
