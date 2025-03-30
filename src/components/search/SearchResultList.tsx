@@ -119,7 +119,18 @@ const SearchResultList = ({ data }: Props) => {
                     </span>
                   </div>
                   <div className="flex flex-row gap-2 items-center justify-end w-[240px]">
-                    <Button size="large">구매하기</Button>
+                    <Button
+                      size="large"
+                      onClick={() =>
+                        window.open(
+                          document.url,
+                          '_blank',
+                          'noopener,noreferrer'
+                        )
+                      }
+                    >
+                      구매하기
+                    </Button>
                     <IconButton
                       text="상세보기"
                       variant="secondary"
