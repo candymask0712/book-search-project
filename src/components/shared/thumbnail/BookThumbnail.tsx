@@ -27,7 +27,7 @@ const BookThumbnail: React.FC<Props> = ({ document, size }) => {
     if (isLiked) {
       setLikedBooks(likedBooks.filter(book => book.isbn !== document.isbn));
     } else {
-      setLikedBooks([...likedBooks, document]);
+      setLikedBooks([document, ...likedBooks]);
     }
   };
 
