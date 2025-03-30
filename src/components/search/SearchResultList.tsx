@@ -37,18 +37,18 @@ const SearchResultList = ({ data }: Props) => {
                   <div className="w-[210px]">
                     <BookThumbnail document={document} size="6" />
                   </div>
-                  <div className="w-[360px]">
+                  <div className="w-[360px] mt-10">
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
                       widths={['max-w-[200px]', 'min-w-[50px]']}
                     />
-                    <h4 className="text-title2 mt-6 mb-6">책 소개</h4>
-                    <p className="text-body2 text-text-secondary mb-4">
+                    <h4 className="text-body2Bold mt-6 mb-6">책 소개</h4>
+                    <p className="text-small text-text-primary mb-4 leading-[16px]">
                       {document.contents || '책 소개 정보가 없습니다.'}
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col justify-between h-[280px]">
+                <div className="flex flex-col justify-between h-[300px]">
                   <div className="flex justify-end mb-2">
                     <IconButton
                       text="상세보기"
@@ -57,6 +57,7 @@ const SearchResultList = ({ data }: Props) => {
                       size="large"
                       iconPosition="right"
                       onClick={() => handleToggle(index)}
+                      className="w-[115px]"
                     />
                   </div>
                   <div className="flex flex-col items-end">
@@ -137,6 +138,7 @@ const SearchResultList = ({ data }: Props) => {
                           'noopener,noreferrer'
                         )
                       }
+                      className="w-[115px]"
                     >
                       구매하기
                     </Button>
@@ -147,6 +149,7 @@ const SearchResultList = ({ data }: Props) => {
                       icon={<CaretDownIcon />}
                       iconPosition="right"
                       onClick={() => handleToggle(index)}
+                      className="w-[115px]"
                     />
                   </div>
                 </div>
