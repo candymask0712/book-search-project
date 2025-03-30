@@ -38,7 +38,7 @@ const SearchResultList = ({ data }: Props) => {
                   <div className="w-[360px]">
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
-                      widths={['max-w-[200px]', 'max-w-[100px]']}
+                      widths={['max-w-[200px]', 'min-w-[50px]']}
                     />
                     <h4 className="text-title2 mt-6 mb-6">책 소개</h4>
                     <p className="text-body2 text-text-secondary mb-4">
@@ -104,7 +104,7 @@ const SearchResultList = ({ data }: Props) => {
                     </div>
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
-                      widths={['min-w-[150px]', 'max-w-[100px]']}
+                      widths={['min-w-[150px]', 'min-w-[50px]']}
                     />
                   </div>
 
@@ -149,12 +149,14 @@ const TitleAndAuthor = ({
   widths?: [string?, string?];
 }) => {
   const [title, authors] = texts;
-  const [titleWidth] = widths || [];
+  const [titleWidth, authorWidth] = widths || [];
 
   return (
     <div className="flex flex-row gap-2 items-center max-w-[350px]">
       <h3 className={`text-title3 mr-2 truncate ${titleWidth}`}>{title}</h3>
-      <span className={`text-body2 text-text-secondary truncate `}>
+      <span
+        className={`text-body2 text-text-secondary truncate ${authorWidth}`}
+      >
         {authors.join(', ')}
       </span>
     </div>
