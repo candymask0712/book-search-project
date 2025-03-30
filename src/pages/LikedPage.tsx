@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { likedBooksAtom } from '../atoms/liked';
 import ResultComponent from '../components/shared/result/ResultComponent';
 
-const FavoritePage: React.FC = () => {
+const LikedPage: React.FC = () => {
   const [likedBooks] = useAtom(likedBooksAtom);
 
   return (
@@ -19,4 +19,4 @@ const FavoritePage: React.FC = () => {
   );
 };
 
-export default FavoritePage;
+export default LikedPage;
