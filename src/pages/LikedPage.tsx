@@ -17,12 +17,13 @@ const LikedPage: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col w-[568px] gap-2">
+      <div className="flex flex-col w-[568px] gap-6 mb-4">
         <h1 className="text-title2">{LINKS.LIKED.label}</h1>
         <ResultComponent
           subTitle="찜한 책"
           data={data}
           totalCount={totalCount}
+          noResultText="찜한 책이 없습니다."
         />
       </div>
       <div ref={observerElem} className="h-1 w-full" />

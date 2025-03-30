@@ -7,9 +7,15 @@ interface Props {
   subTitle: string;
   data: Document[] | undefined;
   totalCount: number;
+  noResultText: string;
 }
 
-const ResultComponent = ({ subTitle, data, totalCount }: Props) => {
+const ResultComponent = ({
+  subTitle,
+  data,
+  totalCount,
+  noResultText
+}: Props) => {
   return (
     <div className="w-[960px] flex flex-col">
       <div className="mb-8">
@@ -20,8 +26,8 @@ const ResultComponent = ({ subTitle, data, totalCount }: Props) => {
           {data && data?.length > 0 ? (
             <SearchResultList data={data} />
           ) : (
-            <div className="flex flex-col justify-center items-center w-full mt-20">
-              <NoResult />
+            <div className="flex flex-col justify-center items-center w-full mt-24">
+              <NoResult text={noResultText} />
             </div>
           )}
         </div>

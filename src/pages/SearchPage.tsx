@@ -51,6 +51,7 @@ const SearchPage = () => {
         subTitle="도서 검색 결과"
         data={documents}
         totalCount={data?.pages[0].meta.total_count || 0}
+        noResultText="검색된 결과가 없습니다."
       />
       <div ref={observerElem} className="h-1 w-full" />
       {isFetchingNextPage && <LoadingFallback />}
