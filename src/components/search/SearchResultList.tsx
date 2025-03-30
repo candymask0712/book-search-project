@@ -5,6 +5,7 @@ import IconButton from '../shared/button/IconButton';
 import CaretUpIcon from '../../assets/icons/caret-up.svg?react';
 import CaretDownIcon from '../../assets/icons/caret-down.svg?react';
 import BookThumbnail from '../shared/thumbnail/BookThumbnail';
+import cn from 'classnames';
 
 interface Props {
   data: Document[];
@@ -60,14 +61,20 @@ const SearchResultList = ({ data }: Props) => {
                   </div>
                   <div className="flex flex-col items-end">
                     <div className="flex flex-col gap-3 mb-8">
-                      <div className="flex flex-row gap-2 justify-end items-center">
-                        <span className="text-tinyMedium text-text-secondary">
-                          원가:
-                        </span>
-                        <span className="line-through">
-                          {document.price.toLocaleString('ko-KR')}원
-                        </span>
-                      </div>
+                      {document.price > 0 && (
+                        <div className="flex flex-row gap-2 justify-end items-center">
+                          <span className="text-tinyMedium text-text-secondary">
+                            원가:
+                          </span>
+                          <span
+                            className={cn({
+                              'line-through': document.sale_price !== -1
+                            })}
+                          >
+                            {document.price.toLocaleString('ko-KR')}원
+                          </span>
+                        </div>
+                      )}
                       {document.sale_price !== -1 && (
                         <div className="flex flex-row gap-2 items-center">
                           <span className="text-tinyMedium text-text-secondary">
@@ -111,12 +118,14 @@ const SearchResultList = ({ data }: Props) => {
 
                 <div className="flex flex-row gap-2">
                   <div className="flex flex-row gap-2 items-center w-[120px] justify-end mr-10">
-                    <span className="text-title3">
-                      {document.sale_price !== -1
-                        ? document.sale_price.toLocaleString('ko-KR')
-                        : document.price.toLocaleString('ko-KR')}
-                      원
-                    </span>
+                    {document.price > 0 && (
+                      <span className="text-title3">
+                        {document.sale_price !== -1
+                          ? document.sale_price.toLocaleString('ko-KR')
+                          : document.price.toLocaleString('ko-KR')}
+                        원
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-row gap-2 items-center justify-end w-[240px]">
                     <Button
