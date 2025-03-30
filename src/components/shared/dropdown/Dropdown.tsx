@@ -36,7 +36,6 @@ const Dropdown = ({ searchTarget, setSearchTarget, options }: Props) => {
                   key={option}
                   className="px-3 py-1.5 hover:bg-gray-100 cursor-pointer text-text-subtitle"
                   onClick={() => {
-                    console.log('option', option);
                     setSearchTarget(option);
                     setIsDropdownOpen(false);
                   }}
