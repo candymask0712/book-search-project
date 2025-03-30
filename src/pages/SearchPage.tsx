@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import SearchComponent from '../components/search/SearchComponent';
 import LoadingFallback from '../components/fallback/LoadingFallback';
 import { useInfiniteSearchBooks } from '../hooks/useSearchBooks';
 import { SearchTarget } from '../types/api.types';
 import ResultComponent from '../components/shared/result/ResultComponent';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 const SearchPage = () => {
   const [query, setQuery] = useState('');
@@ -18,29 +19,11 @@ const SearchPage = () => {
     isFetchingNextPage
   } = useInfiniteSearchBooks({ query, target: searchTarget });
 
-  console.log(data);
-
-  const observerElem = useRef<HTMLDivElement>(null);
-
-  console.log(fetchNextPage, hasNextPage, isFetchingNextPage);
-
-  useEffect(() => {
-    const element = observerElem.current;
-    if (!element) return;
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(element);
-
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+  const observerElem = useInfiniteScroll<HTMLDivElement>(
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  );
 
   if (isLoading) {
     return <LoadingFallback />;

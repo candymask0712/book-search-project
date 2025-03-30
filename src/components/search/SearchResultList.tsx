@@ -30,15 +30,16 @@ const SearchResultList = ({ data }: Props) => {
         return (
           <div key={document.url} className="w-full mb-4">
             {isExpanded ? (
-              <div className="flex flex-row justify-between mt-7 rounded-md">
-                <div className="flex flex-row gap-10">
+              // 상세보기 컴포넌트
+              <div className="flex flex-row justify-between mt-7 rounded-md mb-10">
+                <div className="flex flex-row gap-10 ml-10">
                   <div className="w-[210px]">
                     <BookThumbnail document={document} size="16" />
                   </div>
                   <div className="w-[360px]">
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
-                      widths={['max-w-[200px]', 'max-w-[100px]']}
+                      widths={['max-w-[200px]', 'min-w-[50px]']}
                     />
                     <h4 className="text-title2 mt-6 mb-6">책 소개</h4>
                     <p className="text-body2 text-text-secondary mb-4">
@@ -95,45 +96,54 @@ const SearchResultList = ({ data }: Props) => {
                 </div>
               </div>
             ) : (
-              <>
-                <div className="flex justify-between items-center flex-row gap-2 mb-2 mt-4">
-                  <div className="flex flex-row gap-2 items-center pl-14">
-                    {/* TODO: 썸네일 로딩에 따른 레이아웃시프트 해결 */}
-                    <div className="h-17 w-12 mr-10">
-                      <BookThumbnail document={document} size="16" />
-                    </div>
-                    <TitleAndAuthor
-                      texts={[document.title, document.authors]}
-                      widths={['min-w-[150px]', 'max-w-[100px]']}
-                    />
+              // 축소보기 컴포넌트
+              <div className="flex justify-between items-center flex-row gap-2 mb-2 mt-4">
+                <div className="flex flex-row gap-2 items-center pl-14">
+                  {/* TODO: 썸네일 로딩에 따른 레이아웃시프트 해결 */}
+                  <div className="h-17 w-12 mr-10">
+                    <BookThumbnail document={document} size="16" />
                   </div>
-
-                  <div className="flex flex-row gap-2">
-                    <div className="flex flex-row gap-2 items-center w-[120px] justify-end mr-10">
-                      <span className="text-title3">
-                        {document.sale_price !== -1
-                          ? document.sale_price.toLocaleString('ko-KR')
-                          : document.price.toLocaleString('ko-KR')}
-                        원
-                      </span>
-                    </div>
-                    <div className="flex flex-row gap-2 items-center justify-end w-[240px]">
-                      <Button size="large">구매하기</Button>
-                      <IconButton
-                        text="상세보기"
-                        variant="secondary"
-                        size="large"
-                        icon={<CaretDownIcon />}
-                        iconPosition="right"
-                        onClick={() => handleToggle(index)}
-                      />
-                    </div>
-                  </div>
+                  <TitleAndAuthor
+                    texts={[document.title, document.authors]}
+                    widths={['min-w-[40px]', 'min-w-[50px]']}
+                  />
                 </div>
 
-                <hr className="border-t border-text-subtitle" />
-              </>
+                <div className="flex flex-row gap-2">
+                  <div className="flex flex-row gap-2 items-center w-[120px] justify-end mr-10">
+                    <span className="text-title3">
+                      {document.sale_price !== -1
+                        ? document.sale_price.toLocaleString('ko-KR')
+                        : document.price.toLocaleString('ko-KR')}
+                      원
+                    </span>
+                  </div>
+                  <div className="flex flex-row gap-2 items-center justify-end w-[240px]">
+                    <Button
+                      size="large"
+                      onClick={() =>
+                        window.open(
+                          document.url,
+                          '_blank',
+                          'noopener,noreferrer'
+                        )
+                      }
+                    >
+                      구매하기
+                    </Button>
+                    <IconButton
+                      text="상세보기"
+                      variant="secondary"
+                      size="large"
+                      icon={<CaretDownIcon />}
+                      iconPosition="right"
+                      onClick={() => handleToggle(index)}
+                    />
+                  </div>
+                </div>
+              </div>
             )}
+            <hr className="border-t border-text-subtitle" />
           </div>
         );
       })}
@@ -149,12 +159,14 @@ const TitleAndAuthor = ({
   widths?: [string?, string?];
 }) => {
   const [title, authors] = texts;
-  const [titleWidth] = widths || [];
+  const [titleWidth, authorWidth] = widths || [];
 
   return (
     <div className="flex flex-row gap-2 items-center max-w-[350px]">
       <h3 className={`text-title3 mr-2 truncate ${titleWidth}`}>{title}</h3>
-      <span className={`text-body2 text-text-secondary truncate `}>
+      <span
+        className={`text-body2 text-text-secondary truncate ${authorWidth}`}
+      >
         {authors.join(', ')}
       </span>
     </div>

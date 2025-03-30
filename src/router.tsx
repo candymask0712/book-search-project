@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import SearchPage from './pages/SearchPage';
-import FavoritePage from './pages/FavortiePage';
+import LikedPage from './pages/LikedPage';
 import NotFound from './NotFound';
 export const router = createBrowserRouter([
   {
@@ -14,8 +14,8 @@ export const router = createBrowserRouter([
         element: <SearchPage />
       },
       {
-        path: 'favorite',
-        element: <FavoritePage />
+        path: 'liked',
+        element: <LikedPage />
       }
     ]
   }
