@@ -1,9 +1,17 @@
-import { useAtom } from 'jotai';
-import { likedBooksAtom } from '../atoms/liked';
+import React from 'react';
 import ResultComponent from '../components/shared/result/ResultComponent';
+import { useInfiniteLikedBooks } from '../hooks/useInfiniteLikedBooks';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 const LikedPage: React.FC = () => {
-  const [likedBooks] = useAtom(likedBooksAtom);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, totalCount } =
+    useInfiniteLikedBooks();
+
+  const observerElem = useInfiniteScroll<HTMLDivElement>(
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  );
 
   return (
     <div className="flex flex-col gap-2">
@@ -11,10 +19,12 @@ const LikedPage: React.FC = () => {
         <h1 className="text-title2">내가 찜한 책</h1>
         <ResultComponent
           subTitle="찜한 책"
-          data={likedBooks}
-          totalCount={likedBooks.length}
+          data={data}
+          totalCount={totalCount}
         />
       </div>
+      <div ref={observerElem} className="h-1 w-full" />
+      {isFetchingNextPage && <p>Loading...</p>}
     </div>
   );
 };
