@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { LINKS } from '../../constants/nav';
+import { LINK_LIST } from '../../constants/nav';
 import NavItem from './NavItem';
 
 const HeaderNav: React.FC = () => {
@@ -8,7 +8,7 @@ const HeaderNav: React.FC = () => {
 
   return (
     <nav className="flex items-center space-x-8">
-      {LINKS.map(link => (
+      {LINK_LIST.map(link => (
         <NavItem
           key={link.href}
           link={link}

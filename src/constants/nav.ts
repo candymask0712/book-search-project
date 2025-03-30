@@ -1,6 +1,8 @@
-export const LINKS = [
-  { label: '도서검색', href: '/' },
-  { label: '나의컬렉션', href: '/liked' }
-] as const;
+export const LINKS = {
+  SEARCH: { label: '도서 검색', href: '/' },
+  LIKED: { label: '내가 찜한 책', href: '/liked' }
+} as const;
 
-export const DEFAULT_LINK_HREF = LINKS[0].href;
+export const LINK_LIST = Object.values(LINKS);
+
+export const DEFAULT_LINK_HREF = LINKS.SEARCH.href;
