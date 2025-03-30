@@ -12,7 +12,7 @@ interface Props {
 const ResultComponent = ({ subTitle, data, totalCount }: Props) => {
   return (
     <div className="w-[960px] flex flex-col">
-      <div className="mt-4">
+      <div className="mb-8">
         <ResultCounter subTitle={subTitle} count={totalCount} />
       </div>
       <div className="w-[960px] mx-auto flex items-center justify-center w-full">

@@ -37,7 +37,7 @@ const SearchPage = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col w-[568px] gap-6">
+      <div className="flex flex-col w-[568px] gap-6 mb-4">
         <h1 className="text-title2">도서 검색</h1>
         <SearchComponent
           query={query}
