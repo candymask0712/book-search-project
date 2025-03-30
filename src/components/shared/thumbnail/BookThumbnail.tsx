@@ -6,12 +6,19 @@ import { likedBooksAtom } from '../../../atoms/liked';
 
 const DEFAULT_THUMBNAIL_SRC = 'src/assets/images/no-image.png';
 
+type Size = '4' | '6';
+
+const POSITION_MAP: Record<Size, string> = {
+  '4': 'top-0 right-0',
+  '6': 'top-2 right-2'
+};
+
 interface Props {
   document: Document;
-  size: '16' | '24';
+  size: Size;
 }
 
-const BookThumbnail: React.FC<Props> = ({ document, size = '16' }) => {
+const BookThumbnail: React.FC<Props> = ({ document, size }) => {
   const [likedBooks, setLikedBooks] = useAtom(likedBooksAtom);
 
   const isLiked = likedBooks.some(book => book.isbn === document.isbn);
@@ -24,6 +31,11 @@ const BookThumbnail: React.FC<Props> = ({ document, size = '16' }) => {
     }
   };
 
+  const pxWidth = String(Number(size) * 4);
+  const pxHeight = String(Number(size) * 4);
+
+  const position = POSITION_MAP[size];
+
   return (
     <div className="relative inline-block w-full">
       <img
@@ -32,13 +44,13 @@ const BookThumbnail: React.FC<Props> = ({ document, size = '16' }) => {
         alt={document.title}
       />
       <div
-        className={`absolute top-1 right-1 cursor-pointer h-${size} w-${size}`}
+        className={`absolute cursor-pointer h-${size} w-${size} ${position}`}
         onClick={handleLikeToggle}
       >
         {isLiked ? (
-          <FilledHeartIcon className="text-red-500 text-xl" />
+          <FilledHeartIcon width={pxWidth} height={pxHeight} />
         ) : (
-          <EmptyHeartIcon className="text-white text-xl stroke-current" />
+          <EmptyHeartIcon width={pxWidth} height={pxHeight} />
         )}
       </div>
     </div>

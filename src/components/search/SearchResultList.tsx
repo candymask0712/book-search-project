@@ -34,7 +34,7 @@ const SearchResultList = ({ data }: Props) => {
               <div className="flex flex-row justify-between mt-7 rounded-md mb-10">
                 <div className="flex flex-row gap-10 ml-10">
                   <div className="w-[210px]">
-                    <BookThumbnail document={document} size="16" />
+                    <BookThumbnail document={document} size="6" />
                   </div>
                   <div className="w-[360px]">
                     <TitleAndAuthor
@@ -101,7 +101,7 @@ const SearchResultList = ({ data }: Props) => {
                 <div className="flex flex-row gap-2 items-center pl-14">
                   {/* TODO: 썸네일 로딩에 따른 레이아웃시프트 해결 */}
                   <div className="h-17 w-12 mr-10">
-                    <BookThumbnail document={document} size="16" />
+                    <BookThumbnail document={document} size="4" />
                   </div>
                   <TitleAndAuthor
                     texts={[document.title, document.authors]}
