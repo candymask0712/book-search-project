@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import SearchComponent from '../components/search/SearchComponent';
-import LoadingFallback from '../components/fallback/LoadingFallback';
+
 import { useInfiniteSearchBooks } from '../hooks/useSearchBooks';
 import { SearchTarget } from '../types/api.types';
 import ResultComponent from '../components/shared/result/ResultComponent';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { LINKS } from '../constants/nav';
+import LoadingFallback from '../components/shared/fallback/LoadingFallback';
 
 const SearchPage = () => {
   const [query, setQuery] = useState('');

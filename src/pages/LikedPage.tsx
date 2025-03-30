@@ -3,7 +3,7 @@ import ResultComponent from '../components/shared/result/ResultComponent';
 import { useInfiniteLikedBooks } from '../hooks/useInfiniteLikedBooks';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { LINKS } from '../constants/nav';
-import LoadingFallback from '../components/fallback/LoadingFallback';
+import LoadingFallback from '../components/shared/fallback/LoadingFallback';
 
 const LikedPage: React.FC = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, totalCount } =
