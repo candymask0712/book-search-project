@@ -32,9 +32,8 @@ const SearchComponent = ({
         </DefaultButton>
         {isDetailSearchOpen && (
           <DetailSearchModal
-            onClose={() => setIsDetailSearchOpen(false)}
             searchTarget={searchTarget}
-            query={query}
+            onClose={() => setIsDetailSearchOpen(false)}
             setQuery={setQuery}
             setSearchTarget={setSearchTarget}
           />

@@ -12,13 +12,12 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  query,
   setQuery,
   placeholder = '검색어를 입력하세요'
 }) => {
   const [history, setHistory] = useAtom(searchHistoryAtom);
   const [isRecentOpen, setIsRecentOpen] = useState(false);
-  const [inputValue, setInputValue] = useState(query);
+  const inputRef = useRef<HTMLInputElement>(null);
   const searchBarRef = useRef(null);
 
   const removeHistoryItem = (index: number) => {
@@ -30,21 +29,21 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setIsRecentOpen(false);
   });
 
-  const handleSearchChange = (value: string) => {
-    setInputValue(value);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setQuery(inputValue);
-    setIsRecentOpen(false);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && inputRef.current) {
+      e.preventDefault();
+      const inputValue = inputRef.current.value;
       setQuery(inputValue);
-      setHistory([...history, inputValue]);
+      const filteredHistory = history.filter(item => item !== inputValue);
+      const newHistory = [inputValue, ...filteredHistory.slice(0, 7)];
+      setHistory(newHistory);
       setIsRecentOpen(false);
+    }
+  };
+
+  const handleSearchChange = (value: string) => {
+    if (inputRef.current) {
+      inputRef.current.value = value;
     }
   };
 
@@ -59,22 +58,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
         isRecentOpen && history.length > 0 ? 'rounded-t-3xl' : 'rounded-3xl'
       }`}
     >
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center px-4 py-2 rounded-t-3xl"
-      >
+      ref: {inputRef.current?.value}
+      <form className="flex items-center px-4 py-2 rounded-t-3xl">
         <SearchIcon className="text-gray-500 mr-2" />
         <input
+          ref={inputRef}
           type="text"
           className="flex-1 bg-transparent text-gray-600 placeholder-gray-400 focus:outline-none"
           placeholder={placeholder}
-          value={inputValue}
-          onChange={e => handleSearchChange(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => setIsRecentOpen(true)}
         />
       </form>
-
       {isRecentOpen && history.length > 0 && (
         <ul
           className={`absolute top-full left-0 right-0 bg-gray-100 rounded-b-3xl`}

@@ -5,10 +5,11 @@ import { useInfiniteSearchBooks } from '../hooks/useSearchBooks';
 import { SearchTarget } from '../types/api.types';
 import ResultComponent from '../components/shared/result/ResultComponent';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import { LINKS } from '../constants/nav';
 
 const SearchPage = () => {
   const [query, setQuery] = useState('');
-  const [searchTarget, setSearchTarget] = useState<SearchTarget>('author');
+  const [searchTarget, setSearchTarget] = useState<SearchTarget>('title');
 
   const {
     data,
@@ -37,8 +38,9 @@ const SearchPage = () => {
 
   return (
     <div className="flex flex-col gap-2">
+      query: {query}
       <div className="flex flex-col w-[568px] gap-6 mb-4">
-        <h1 className="text-title2">도서 검색</h1>
+        <h1 className="text-title2">{LINKS.SEARCH.label}</h1>
         <SearchComponent
           query={query}
           setQuery={setQuery}
