@@ -6,8 +6,8 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
-import DefaultFallback from './components/fallback/DefaultFallback';
-import LoadingFallback from './components/fallback/LoadingFallback';
+import DefaultFallback from './components/shared/fallback/DefaultFallback';
+import LoadingFallback from './components/shared/fallback/LoadingFallback';
 
 const queryClient = new QueryClient();
 

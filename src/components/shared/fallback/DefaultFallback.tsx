@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DefaultButton from '../shared/button/Button';
+import DefaultButton from '../button/Button';
+
 interface Props {
   message?: string;
 }
