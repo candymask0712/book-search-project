@@ -4,12 +4,11 @@ import Button from '../shared/button/Button';
 import IconButton from '../shared/button/IconButton';
 import CaretUpIcon from '../../assets/icons/caret-up.svg?react';
 import CaretDownIcon from '../../assets/icons/caret-down.svg?react';
+import BookThumbnail from '../shared/thumbnail/BookThumbnail';
 
 interface Props {
   data: Document[];
 }
-
-const DEFAULT_THUMBNAIL_SRC = 'src/assets/images/no-image.png';
 
 const SearchResultList = ({ data }: Props) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -23,21 +22,17 @@ const SearchResultList = ({ data }: Props) => {
   };
 
   return (
-    <div className="w-[960px]">
+    <div>
       {data?.map((document, index) => {
         const isExpanded = expandedIndex === index;
 
         // TODO: 컴포넌트 세분화 하기
         return (
-          <div key={document.isbn} className="w-full mb-4">
+          <div key={document.url} className="w-full mb-4">
             {isExpanded ? (
               <div className="flex flex-row justify-between mt-7 rounded-md">
                 <div className="flex flex-row gap-10">
-                  <img
-                    className="w-[210px]"
-                    src={document?.thumbnail || DEFAULT_THUMBNAIL_SRC}
-                    alt={document.title}
-                  />
+                  <BookThumbnail document={document} size="16" />
                   <div className="w-[360px]">
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
@@ -45,9 +40,7 @@ const SearchResultList = ({ data }: Props) => {
                     />
                     <h4 className="text-title2 mt-6 mb-6">책 소개</h4>
                     <p className="text-body2 text-text-secondary mb-4">
-                      {document.contents
-                        ? document.contents.replace(/\s+/g, '\n\n')
-                        : '책 소개 정보가 없습니다.'}
+                      {document.contents || '책 소개 정보가 없습니다.'}
                     </p>
                   </div>
                 </div>
@@ -101,14 +94,12 @@ const SearchResultList = ({ data }: Props) => {
               </div>
             ) : (
               <>
-                <div className="flex justify-between items-center flex-row gap-2 mb-2">
-                  <div className="flex flex-row gap-2 items-center">
+                <div className="flex justify-between items-center flex-row gap-2 mb-2 mt-4">
+                  <div className="flex flex-row gap-2 items-center pl-14">
                     {/* TODO: 썸네일 로딩에 따른 레이아웃시프트 해결 */}
-                    <img
-                      className="h-17 w-12"
-                      src={document?.thumbnail || DEFAULT_THUMBNAIL_SRC}
-                      alt={document.title}
-                    />
+                    <div className="h-17 w-12">
+                      <BookThumbnail document={document} size="16" />
+                    </div>
                     <TitleAndAuthor
                       texts={[document.title, document.authors]}
                       widths={['max-w-[300px]', 'max-w-[150px]']}
