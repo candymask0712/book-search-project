@@ -29,13 +29,17 @@ const fontSize = {
   body2Bold: createFontSize('14px', '700'),
   caption: createFontSize('16px', '400'),
   captionMedium: ['14px', { lineHeight: '22px', fontWeight: '500' }],
-  small: createFontSize('10px', '400')
+  small: createFontSize('10px', '400'),
+  tinyMedium: ['8px', { lineHeight: '12px', fontWeight: '500' }]
 };
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Noto Sans KR"']
+      },
       colors: {
         palette: {
           primary: '#4880EE',

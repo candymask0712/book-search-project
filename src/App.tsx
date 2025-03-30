@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div className="bg-palette-white h-screen">
       <Header />
-      <main className="pt-16">
+      <main className="pt-16 max-w-[960px] mx-auto mt-14">
         <Outlet />
       </main>
     </div>

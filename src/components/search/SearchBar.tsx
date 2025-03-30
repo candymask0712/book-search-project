@@ -3,14 +3,13 @@ import SearchIcon from '../../assets/icons/search.svg?react';
 import CloseIcon from '../../assets/icons/close.svg?react';
 import { useClickAway } from 'react-use';
 import { useAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
+import { searchHistoryAtom } from '../../atoms/history';
 
 interface SearchBarProps {
   placeholder?: string;
   query: string;
   setQuery: (query: string) => void;
 }
-const searchHistoryAtom = atomWithStorage<string[]>('searchHistory', []);
 
 const SearchBar: React.FC<SearchBarProps> = ({
   query,
@@ -56,7 +55,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   return (
     <div
       ref={searchBarRef}
-      className={`relative w-full bg-gray-100 ${
+      className={`relative w-full bg-gray-100 z-20 ${
         isRecentOpen && history.length > 0 ? 'rounded-t-3xl' : 'rounded-3xl'
       }`}
     >
@@ -78,7 +77,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
       {isRecentOpen && history.length > 0 && (
         <ul
-          className={`absolute top-full left-0 right-0 bg-gray-100 rounded-b-3xl `}
+          className={`absolute top-full left-0 right-0 bg-gray-100 rounded-b-3xl`}
         >
           {history.map((item, idx) => (
             <li

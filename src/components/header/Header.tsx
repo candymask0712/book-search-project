@@ -4,7 +4,7 @@ import HeaderLogo from './HeaderLogo';
 
 const Header: React.FC = () => {
   return (
-    <header className="w-full bg-palette-white fixed top-0 z-10">
+    <header className="w-full bg-palette-white fixed top-0 z-30">
       <div className="max-w-screen-xl mx-auto px-4 h-16 flex items-center justify-between">
         <HeaderLogo />
         <HeaderNav />
