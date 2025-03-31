@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { Document } from '../../types/api.types';
-import Button from '../shared/button/Button';
-import IconButton from '../shared/button/IconButton';
-import CaretUpIcon from '../../assets/icons/caret-up.svg?react';
-import CaretDownIcon from '../../assets/icons/caret-down.svg?react';
-import BookThumbnail from '../shared/thumbnail/BookThumbnail';
+import { Document } from '../../../types/api.types';
+import Button from '../button/Button';
+import CaretUpIcon from '../../../assets/icons/caret-up.svg?react';
+import CaretDownIcon from '../../../assets/icons/caret-down.svg?react';
+import BookThumbnail from '../thumbnail/BookThumbnail';
 import cn from 'classnames';
+import ToggleIconButton from '../button/ToggleIconButton';
+import openExternalURL from '../../../utils/openExternalURL';
 
 interface Props {
   data: Document[];
 }
 
-const SearchResultList = ({ data }: Props) => {
+const ResultList = ({ data }: Props) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
@@ -26,8 +27,10 @@ const SearchResultList = ({ data }: Props) => {
     <div>
       {data?.map((document, index) => {
         const isExpanded = expandedIndex === index;
+        const { title, authors, contents, price, sale_price, url } = document;
+        const isSale = sale_price !== -1;
+        const salePrice = isSale ? sale_price : price;
 
-        // TODO: 컴포넌트 세분화 하기
         return (
           <div key={document.url} className="w-full mb-4">
             {isExpanded ? (
@@ -39,64 +42,31 @@ const SearchResultList = ({ data }: Props) => {
                   </div>
                   <div className="w-[360px] mt-10">
                     <TitleAndAuthor
-                      texts={[document.title, document.authors]}
+                      texts={[title, authors]}
                       widths={['max-w-[200px]', 'min-w-[50px]']}
                     />
                     <h4 className="text-body2Bold mt-6 mb-6">책 소개</h4>
                     <p className="text-small text-text-primary mb-4 leading-[16px]">
-                      {document.contents || '책 소개 정보가 없습니다.'}
+                      {contents || '책 소개 정보가 없습니다.'}
                     </p>
                   </div>
                 </div>
                 <div className="flex flex-col justify-between h-[300px]">
                   <div className="flex justify-end mb-2">
-                    <IconButton
-                      text="상세보기"
-                      variant="secondary"
-                      icon={<CaretUpIcon />}
-                      size="large"
-                      iconPosition="right"
+                    <ToggleIconButton
                       onClick={() => handleToggle(index)}
+                      icon={<CaretUpIcon />}
                       className="w-[115px]"
                     />
                   </div>
                   <div className="flex flex-col items-end">
                     <div className="flex flex-col gap-3 mb-8">
-                      {document.price > 0 && (
-                        <div className="flex flex-row gap-2 justify-end items-center">
-                          <span className="text-tinyMedium text-text-secondary">
-                            원가:
-                          </span>
-                          <span
-                            className={cn({
-                              'line-through': document.sale_price !== -1
-                            })}
-                          >
-                            {document.price.toLocaleString('ko-KR')}원
-                          </span>
-                        </div>
-                      )}
-                      {document.sale_price !== -1 && (
-                        <div className="flex flex-row gap-2 items-center">
-                          <span className="text-tinyMedium text-text-secondary">
-                            할인가:
-                          </span>
-                          <span className="text-title3">
-                            {document.sale_price.toLocaleString('ko-KR')}원
-                          </span>
-                        </div>
-                      )}
+                      <PriceInfo price={price} salePrice={salePrice} />
                     </div>
                     <Button
                       size="large"
                       className="w-[240px]"
-                      onClick={() =>
-                        window.open(
-                          document.url,
-                          '_blank',
-                          'noopener,noreferrer'
-                        )
-                      }
+                      onClick={() => openExternalURL(url)}
                     >
                       구매하기
                     </Button>
@@ -107,23 +77,22 @@ const SearchResultList = ({ data }: Props) => {
               // 축소보기 컴포넌트
               <div className="flex justify-between items-center flex-row gap-2 mb-2 mt-4">
                 <div className="flex flex-row gap-2 items-center pl-14">
-                  {/* TODO: 썸네일 로딩에 따른 레이아웃시프트 해결 */}
                   <div className="h-17 w-12 mr-10">
                     <BookThumbnail document={document} size="4" />
                   </div>
                   <TitleAndAuthor
-                    texts={[document.title, document.authors]}
+                    texts={[title, authors]}
                     widths={['min-w-[40px]', 'min-w-[50px]']}
                   />
                 </div>
 
                 <div className="flex flex-row gap-2">
                   <div className="flex flex-row gap-2 items-center w-[120px] justify-end mr-10">
-                    {document.price > 0 && (
+                    {price > 0 && (
                       <span className="text-title3">
-                        {document.sale_price !== -1
-                          ? document.sale_price.toLocaleString('ko-KR')
-                          : document.price.toLocaleString('ko-KR')}
+                        {sale_price !== -1
+                          ? sale_price.toLocaleString('ko-KR')
+                          : price.toLocaleString('ko-KR')}
                         원
                       </span>
                     )}
@@ -131,24 +100,14 @@ const SearchResultList = ({ data }: Props) => {
                   <div className="flex flex-row gap-2 items-center justify-end w-[240px]">
                     <Button
                       size="large"
-                      onClick={() =>
-                        window.open(
-                          document.url,
-                          '_blank',
-                          'noopener,noreferrer'
-                        )
-                      }
+                      onClick={() => openExternalURL(url)}
                       className="w-[115px]"
                     >
                       구매하기
                     </Button>
-                    <IconButton
-                      text="상세보기"
-                      variant="secondary"
-                      size="large"
-                      icon={<CaretDownIcon />}
-                      iconPosition="right"
+                    <ToggleIconButton
                       onClick={() => handleToggle(index)}
+                      icon={<CaretDownIcon />}
                       className="w-[115px]"
                     />
                   </div>
@@ -185,4 +144,33 @@ const TitleAndAuthor = ({
   );
 };
 
-export default SearchResultList;
+const PriceInfo = ({
+  price,
+  salePrice
+}: {
+  price: number;
+  salePrice: number;
+}) => {
+  return (
+    <>
+      {price > 0 && (
+        <div className="flex flex-row gap-2 justify-end items-center">
+          <span className="text-tinyMedium text-text-secondary">원가:</span>
+          <span className={cn({ 'line-through': salePrice !== -1 })}>
+            {price.toLocaleString('ko-KR')}원
+          </span>
+        </div>
+      )}
+      {salePrice !== -1 && (
+        <div className="flex flex-row gap-2 items-center">
+          <span className="text-tinyMedium text-text-secondary">할인가:</span>
+          <span className="text-title3">
+            {salePrice.toLocaleString('ko-KR')}원
+          </span>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default ResultList;
