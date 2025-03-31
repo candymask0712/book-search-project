@@ -35,6 +35,9 @@ pnpm dev
     // ...
   );
   ```
+- 다양한 케이스의 데이터를 고려한 CSS 작성
+  <img width="830" alt="Image" src="https://github.com/user-attachments/assets/f1c66dcd-76fd-4fca-a624-9b0f4252a7eb" />
+  <img width="830" alt="Image" src="https://github.com/user-attachments/assets/bfd5e7b5-24da-4ec1-b140-d1bc56914be6" />
 
 ## 프로젝트 유지보수성 개선
 
