@@ -1,7 +1,7 @@
 # 프로젝트 개요
 
 - 카카오 책 검색 API 기반의 책 검색 및 찜하기 리스트를 관리할 수 있는 서비스
-- React 기반의 SPA 방식의 웹 프로젝트
+- React 기반의 SPA 방식의 웹 프로젝트 ([배포링크](https://book-search-project.vercel.app/))
 
 # 실행 방법 및 환경 설정
 
@@ -88,9 +88,9 @@ pnpm dev
     SEARCH: { label: '도서 검색', href: '/' },
     LIKED: { label: '내가 찜한 책', href: '/liked' }
   } as const;
-
+  
   export const LINK_LIST = Object.values(LINKS);
-
+  
   export const DEFAULT_LINK_HREF = LINKS.SEARCH.href;
   ```
   ```ts
