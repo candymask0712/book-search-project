@@ -45,7 +45,7 @@ pnpm dev
   <img width="830" alt="Image" src="https://github.com/user-attachments/assets/bfd5e7b5-24da-4ec1-b140-d1bc56914be6" />
   <img width="830" alt="Image" src="https://github.com/user-attachments/assets/b03e1b7d-92cf-41fb-9d39-dff585150b89" />
   <img width="830" alt="Image" src="https://github.com/user-attachments/assets/4fae4e62-8f43-4905-b279-222cc1312f5e" />
-<img width="835" alt="Image" src="https://github.com/user-attachments/assets/9bc08ee1-18f4-4761-a499-513ef4d1233c" />
+  <img width="835" alt="Image" src="https://github.com/user-attachments/assets/9bc08ee1-18f4-4761-a499-513ef4d1233c" />
 
 ## 프로젝트 유지보수성 개선
 
