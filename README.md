@@ -20,24 +20,25 @@ pnpm dev
 
 ## 사용자 경험(UX) 개선
 
-### 사용자 경험을 위한 ErrorBoundary, Suspense 설정
-```tsx
-// main.tsx
+### 사용자 경험을 위한 UI 개선
+-  ErrorBoundary, Suspense 설정
+  ```tsx
+  // main.tsx
 
-createRoot(document.getElementById('root')!).render(
-  // ...
-  <ErrorBoundary fallback={<DefaultFallback />}>
-    <Suspense fallback={<LoadingFallback />}>
-      <RouterProvider router={router} />
-    </Suspense>
-  </ErrorBoundary>
-  // ...
-);
-```
+  createRoot(document.getElementById('root')!).render(
+    // ...
+    <ErrorBoundary fallback={<DefaultFallback />}>
+      <Suspense fallback={<LoadingFallback />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </ErrorBoundary>
+    // ...
+  );
+  ```
 
 ## 프로젝트 유지보수성 개선
 
-### 타입스크립트를 통한 
+### 타입스크립트를 통한 개발자 경험 개선
 - Literal Union 타입과 Template Literal 타입을 사용하여 휴먼에러 예방
 
   ```ts
