@@ -6,6 +6,7 @@ import { useAtom } from 'jotai';
 import { searchHistoryAtom } from '../../atoms/history';
 import { SEARCH_TYPE_ENUM } from '../../constants/search';
 import { SearchTarget } from '../../types/api.types';
+import { updateSearchHistory } from '../../utils/searchHistory';
 
 interface SearchBarProps {
   placeholder?: string;
@@ -44,19 +45,20 @@ const SearchBar: React.FC<SearchBarProps> = ({
     if (e.key === 'Enter') {
       e.preventDefault();
       if (value?.trim()) {
-        search(value);
+        search(value, SEARCH_TYPE_ENUM.title);
       }
     }
   };
 
-  const search = (query: string) => {
+  const search = (query: string, searchTarget: SearchTarget) => {
     setSearchState({
       query,
-      searchTarget: SEARCH_TYPE_ENUM.title
+      searchTarget
     });
-    const filteredHistory = history.filter(item => item !== query);
-    const newHistory = [query, ...filteredHistory.slice(0, 7)];
-    setHistory(newHistory);
+    updateSearchHistory(history, setHistory, {
+      query,
+      searchTarget
+    });
     setIsRecentOpen(false);
   };
 
@@ -93,10 +95,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 idx === history.length - 1 ? 'rounded-b-3xl' : ''
               }`}
               onClick={() => {
-                search(item);
+                search(item.query, item.searchTarget);
               }}
             >
-              <span className="text-gray-700 ">{item}</span>
+              <span className="text-gray-700 ">{item.query}</span>
               <button
                 onClick={e => {
                   e.stopPropagation();
