@@ -1,4 +1,3 @@
-import React from 'react';
 import ResultComponent from '../components/shared/result/ResultComponent';
 import { useInfiniteLikedBooks } from '../hooks/useInfiniteLikedBooks';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
