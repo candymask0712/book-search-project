@@ -5,6 +5,9 @@ import Dropdown from '../shared/dropdown/Dropdown';
 import { SearchTarget } from '../../types/api.types';
 import { useClickAway } from 'react-use';
 import { searchTargetKeys } from '../../constants/search';
+import { updateSearchHistory } from '../../utils/searchHistory';
+import { searchHistoryAtom } from '../../atoms/history';
+import { useAtom } from 'jotai';
 
 interface Props {
   onClose: () => void;
@@ -24,6 +27,7 @@ const DetailSearchModal: React.FC<Props> = ({
   setSearchState
 }) => {
   const detailedQueryRef = useRef<HTMLInputElement>(null);
+  const [history, setHistory] = useAtom(searchHistoryAtom);
   const [selectedOption, setSelectedOption] = useState(
     searchState.searchTarget
   );
@@ -64,9 +68,15 @@ const DetailSearchModal: React.FC<Props> = ({
         </div>
         <DefaultButton
           onClick={() => {
+            const query = detailedQueryRef.current?.value || '';
+            const searchTarget = selectedOption;
             setSearchState({
-              query: detailedQueryRef.current?.value || '',
-              searchTarget: selectedOption
+              query,
+              searchTarget
+            });
+            updateSearchHistory(history, setHistory, {
+              query,
+              searchTarget
             });
             onClose();
           }}
