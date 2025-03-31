@@ -9,8 +9,13 @@ import { LINKS } from '../constants/nav';
 import LoadingFallback from '../components/shared/fallback/LoadingFallback';
 
 const SearchPage = () => {
-  const [query, setQuery] = useState('');
-  const [searchTarget, setSearchTarget] = useState<SearchTarget>('title');
+  const [searchState, setSearchState] = useState<{
+    query: string;
+    searchTarget: SearchTarget;
+  }>({
+    query: '',
+    searchTarget: 'title'
+  });
 
   const {
     data,
@@ -19,7 +24,9 @@ const SearchPage = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage
-  } = useInfiniteSearchBooks({ query, target: searchTarget });
+  } = useInfiniteSearchBooks({
+    searchState
+  });
 
   const observerElem = useInfiniteScroll<HTMLDivElement>(
     fetchNextPage,
@@ -42,10 +49,8 @@ const SearchPage = () => {
       <div className="flex flex-col w-[568px] gap-6 mb-4">
         <h1 className="text-title2">{LINKS.SEARCH.label}</h1>
         <SearchComponent
-          query={query}
-          setQuery={setQuery}
-          searchTarget={searchTarget}
-          setSearchTarget={setSearchTarget}
+          searchState={searchState}
+          setSearchState={setSearchState}
         />
       </div>
       <ResultComponent

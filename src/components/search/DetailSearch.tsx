@@ -3,25 +3,30 @@ import CloseIcon from '../../assets/icons/close.svg?react';
 import DefaultButton from '../shared/button/Button';
 import Dropdown from '../shared/dropdown/Dropdown';
 import { SearchTarget } from '../../types/api.types';
-import SEARCH_TARGETS from '../../constants/search';
 import { useClickAway } from 'react-use';
-const searchTargetOptions = Object.keys(SEARCH_TARGETS);
+import { searchTargetKeys } from '../../constants/search';
 
 interface Props {
   onClose: () => void;
-  setQuery: (query: string) => void;
-  searchTarget: SearchTarget;
-  setSearchTarget: (target: SearchTarget) => void;
+  searchState: {
+    query: string;
+    searchTarget: SearchTarget;
+  };
+  setSearchState: (searchState: {
+    query: string;
+    searchTarget: SearchTarget;
+  }) => void;
 }
 
 const DetailSearchModal: React.FC<Props> = ({
   onClose,
-  setQuery,
-  searchTarget,
-  setSearchTarget
+  searchState,
+  setSearchState
 }) => {
   const detailedQueryRef = useRef<HTMLInputElement>(null);
-  const [selectedOption, setSelectedOption] = useState(searchTarget);
+  const [selectedOption, setSelectedOption] = useState(
+    searchState.searchTarget
+  );
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
@@ -46,8 +51,7 @@ const DetailSearchModal: React.FC<Props> = ({
           <Dropdown
             searchTarget={selectedOption}
             setSearchTarget={setSelectedOption}
-            // TODO 상수에서 가져오도록 수정
-            options={searchTargetOptions as SearchTarget[]}
+            options={searchTargetKeys}
           />
           <div className="flex-1">
             <input
@@ -60,8 +64,10 @@ const DetailSearchModal: React.FC<Props> = ({
         </div>
         <DefaultButton
           onClick={() => {
-            setQuery(detailedQueryRef.current?.value || '');
-            setSearchTarget(selectedOption);
+            setSearchState({
+              query: detailedQueryRef.current?.value || '',
+              searchTarget: selectedOption
+            });
             onClose();
           }}
           className="mb-5"

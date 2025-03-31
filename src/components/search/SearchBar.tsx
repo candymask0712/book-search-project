@@ -1,19 +1,29 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import SearchIcon from '../../assets/icons/search.svg?react';
 import CloseIcon from '../../assets/icons/close.svg?react';
 import { useClickAway } from 'react-use';
 import { useAtom } from 'jotai';
 import { searchHistoryAtom } from '../../atoms/history';
+import { SEARCH_TYPE_ENUM } from '../../constants/search';
+import { SearchTarget } from '../../types/api.types';
 
 interface SearchBarProps {
   placeholder?: string;
-  query: string;
-  setQuery: (query: string) => void;
+  searchState: {
+    query: string;
+    searchTarget: SearchTarget;
+  };
+  setSearchState: Dispatch<
+    SetStateAction<{
+      query: string;
+      searchTarget: SearchTarget;
+    }>
+  >;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  setQuery,
-  placeholder = '검색어를 입력하세요'
+  placeholder = '검색어를 입력하세요',
+  setSearchState
 }) => {
   const [history, setHistory] = useAtom(searchHistoryAtom);
   const [isRecentOpen, setIsRecentOpen] = useState(false);
@@ -30,21 +40,24 @@ const SearchBar: React.FC<SearchBarProps> = ({
   });
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && inputRef.current) {
+    const value = inputRef.current?.value;
+    if (e.key === 'Enter') {
       e.preventDefault();
-      const inputValue = inputRef.current.value;
-      setQuery(inputValue);
-      const filteredHistory = history.filter(item => item !== inputValue);
-      const newHistory = [inputValue, ...filteredHistory.slice(0, 7)];
-      setHistory(newHistory);
-      setIsRecentOpen(false);
+      if (value?.trim()) {
+        search(value);
+      }
     }
   };
 
-  const handleSearchChange = (value: string) => {
-    if (inputRef.current) {
-      inputRef.current.value = value;
-    }
+  const search = (query: string) => {
+    setSearchState({
+      query,
+      searchTarget: SEARCH_TYPE_ENUM.title
+    });
+    const filteredHistory = history.filter(item => item !== query);
+    const newHistory = [query, ...filteredHistory.slice(0, 7)];
+    setHistory(newHistory);
+    setIsRecentOpen(false);
   };
 
   const handleRemoveHistoryItem = (index: number) => {
@@ -80,9 +93,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 idx === history.length - 1 ? 'rounded-b-3xl' : ''
               }`}
               onClick={() => {
-                handleSearchChange(item);
-                setQuery(item);
-                setIsRecentOpen(false);
+                search(item);
               }}
             >
               <span className="text-gray-700 ">{item}</span>

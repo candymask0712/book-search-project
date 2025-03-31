@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { SearchTarget } from '../../../types/api.types';
-import SEARCH_TARGETS from '../../../constants/search';
+import { searchTargetKR } from '../../../constants/search';
 import ArrowDownIcon from '../../../assets/icons/caret-down.svg?react';
 import { useClickAway } from 'react-use';
 
@@ -24,7 +24,7 @@ const Dropdown = ({ searchTarget, setSearchTarget, options }: Props) => {
         className="flex items-center justify-between w-full text-body2Bold px-2 py-1"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
-        {SEARCH_TARGETS[searchTarget]}
+        {searchTargetKR[searchTarget]}
         <ArrowDownIcon />
       </button>
       {isDropdownOpen && (
@@ -40,7 +40,7 @@ const Dropdown = ({ searchTarget, setSearchTarget, options }: Props) => {
                     setIsDropdownOpen(false);
                   }}
                 >
-                  {SEARCH_TARGETS[option]}
+                  {searchTargetKR[option]}
                 </li>
               )
           )}
