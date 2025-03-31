@@ -1,13 +1,14 @@
 # 프로젝트 개요
 
 - 카카오 책 검색 API 기반의 책 검색 및 찜하기 리스트를 관리할 수 있는 서비스
-- React 기반의 SPA 방식의 웹 페이지로 구성  
+- React 기반의 SPA 방식의 웹 프로젝트
 
 # 실행 방법 및 환경 설정
 
 ## 실행 방법
 ```
 git clone https://github.com/candymask0712/book-search-project.git
+// 프로젝트 디렉토리로 이동 
 pnpm install
 pnpm dev
 ```
@@ -20,24 +21,36 @@ pnpm dev
 
 ## 사용자 경험(UX) 개선
 
-### 사용자 경험을 위한 ErrorBoundary, Suspense 설정
-```tsx
-// main.tsx
+### 사용자 경험을 위한 UI 개선
+-  ErrorBoundary, Suspense 설정
+  ```tsx
+  // main.tsx
 
-createRoot(document.getElementById('root')!).render(
-  // ...
-  <ErrorBoundary fallback={<DefaultFallback />}>
-    <Suspense fallback={<LoadingFallback />}>
-      <RouterProvider router={router} />
-    </Suspense>
-  </ErrorBoundary>
-  // ...
-);
-```
+  createRoot(document.getElementById('root')!).render(
+    // ...
+    <ErrorBoundary fallback={<DefaultFallback />}>
+      <Suspense fallback={<LoadingFallback />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </ErrorBoundary>
+    // ...
+  );
+  ```
+- 다양한 케이스의 데이터를 고려한 CSS 작성
+  - 제목이나 저자명의 데이터 길이가 긴 경우
+  - 가격이 매우 비싼 경우
+  - 썸네일 이미지가 없는 경우
+  - 가격데이터가 없는 경우
+  - 저자명이 없는 경우
+  <img width="830" alt="Image" src="https://github.com/user-attachments/assets/f1c66dcd-76fd-4fca-a624-9b0f4252a7eb" />
+  <img width="830" alt="Image" src="https://github.com/user-attachments/assets/bfd5e7b5-24da-4ec1-b140-d1bc56914be6" />
+  <img width="830" alt="Image" src="https://github.com/user-attachments/assets/b03e1b7d-92cf-41fb-9d39-dff585150b89" />
+  <img width="830" alt="Image" src="https://github.com/user-attachments/assets/4fae4e62-8f43-4905-b279-222cc1312f5e" />
+  <img width="835" alt="Image" src="https://github.com/user-attachments/assets/9bc08ee1-18f4-4761-a499-513ef4d1233c" />
 
 ## 프로젝트 유지보수성 개선
 
-### 타입스크립트를 통한 
+### 타입스크립트를 통한 개발자 경험 개선
 - Literal Union 타입과 Template Literal 타입을 사용하여 휴먼에러 예방
 
   ```ts

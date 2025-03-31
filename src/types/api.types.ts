@@ -1,7 +1,7 @@
-import SEARCH_TARGETS from '../constants/search';
+import { SEARCH_TYPE_ENUM } from '../constants/search';
 
 export type Sort = 'accuracy' | 'latest';
-export type SearchTarget = keyof typeof SEARCH_TARGETS;
+export type SearchTarget = keyof typeof SEARCH_TYPE_ENUM;
 
 export type SearchBooksParams = {
   query: string; // 검색을 원하는 질의어

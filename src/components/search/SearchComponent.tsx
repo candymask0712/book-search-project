@@ -1,27 +1,28 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import DefaultButton from '../shared/button/Button';
 import SearchBar from './SearchBar';
 import DetailSearchModal from './DetailSearch';
 import { SearchTarget } from '../../types/api.types';
 
 interface Props {
-  query: string;
-  setQuery: (query: string) => void;
-  searchTarget: SearchTarget;
-  setSearchTarget: (target: SearchTarget) => void;
+  searchState: {
+    query: string;
+    searchTarget: SearchTarget;
+  };
+  setSearchState: Dispatch<
+    SetStateAction<{
+      query: string;
+      searchTarget: SearchTarget;
+    }>
+  >;
 }
 
-const SearchComponent = ({
-  query,
-  setQuery,
-  searchTarget,
-  setSearchTarget
-}: Props) => {
+const SearchComponent = ({ searchState, setSearchState }: Props) => {
   const [isDetailSearchOpen, setIsDetailSearchOpen] = useState(false);
 
   return (
     <div className="flex flex-row gap-4">
-      <SearchBar query={query} setQuery={setQuery} />
+      <SearchBar searchState={searchState} setSearchState={setSearchState} />
       <div className="flex items-center w-24 relative">
         <DefaultButton
           size="small"
@@ -32,10 +33,9 @@ const SearchComponent = ({
         </DefaultButton>
         {isDetailSearchOpen && (
           <DetailSearchModal
-            searchTarget={searchTarget}
+            searchState={searchState}
             onClose={() => setIsDetailSearchOpen(false)}
-            setQuery={setQuery}
-            setSearchTarget={setSearchTarget}
+            setSearchState={setSearchState}
           />
         )}
       </div>

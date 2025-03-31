@@ -1,4 +1,3 @@
-import React from 'react';
 import cn from 'classnames';
 import { LinkType } from '../../types/link.types';
 import { Link } from 'react-router-dom';

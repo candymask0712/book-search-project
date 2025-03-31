@@ -6,7 +6,6 @@ export const searchBooks = async ({
   page = 1,
   target
 }: SearchBooksParams): Promise<SearchBooksResponse> => {
-  console.log('query', query, page, target);
   const { data } = await kakaoInstance.get<SearchBooksResponse>(
     '/search/book',
     {

@@ -1,5 +1,3 @@
-// TODO: 명령어로 react import 삭제
-import React from 'react';
 import HeaderNav from './HeaderNav';
 import HeaderLogo from './HeaderLogo';
 

@@ -1,22 +1,25 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { searchBooks } from '../api/kakako/kakaoApi';
-import { SearchBooksResponse, SearchBooksParams } from '../types/api.types';
+import { SearchBooksResponse, SearchTarget } from '../types/api.types';
 
-interface UseSearchBooksParams extends Omit<SearchBooksParams, 'page'> {
-  query: string;
+interface UseSearchBooksParams {
+  searchState: {
+    query: string;
+    searchTarget: SearchTarget;
+  };
   page?: number;
 }
 
 export const useInfiniteSearchBooks = ({
-  query,
-  target
+  searchState
 }: UseSearchBooksParams) => {
+  const { query, searchTarget } = searchState;
   return {
     ...useInfiniteQuery<SearchBooksResponse, Error>({
-      queryKey: ['searchBooks', query, target],
+      queryKey: ['searchBooks', query, searchTarget],
       queryFn: ({ pageParam }) => {
         const page = isNaN(Number(pageParam)) ? 1 : Number(pageParam);
-        return searchBooks({ query, target, page });
+        return searchBooks({ query, target: searchTarget, page });
       },
       getNextPageParam: (lastPage, pages) => {
         if (!lastPage.meta.is_end) {
