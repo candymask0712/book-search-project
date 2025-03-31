@@ -1,13 +1,14 @@
 # 프로젝트 개요
 
 - 카카오 책 검색 API 기반의 책 검색 및 찜하기 리스트를 관리할 수 있는 서비스
-- React 기반의 SPA 방식의 웹 페이지로 구성  
+- React 기반의 SPA 방식의 웹 프로젝트
 
 # 실행 방법 및 환경 설정
 
 ## 실행 방법
 ```
 git clone https://github.com/candymask0712/book-search-project.git
+// 프로젝트 디렉토리로 이동 
 pnpm install
 pnpm dev
 ```
